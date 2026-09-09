@@ -26,6 +26,7 @@ for (const filename of rootFiles) {
     content = content.replaceAll('href="/', `href="${basePath}`).replaceAll('src="/', `src="${basePath}`);
   }
   if (filename === 'styles.css') content = content.replaceAll("url('/", `url('${basePath}`);
+  if (filename === 'artworks.js') content = content.replaceAll('`/assets/', `\`${basePath}assets/`);
   if (filename === 'app.js') {
     const escapedBase = basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const routePattern = `new RegExp('^${escapedBase.replace(/\/$/, '')}/?')`;
