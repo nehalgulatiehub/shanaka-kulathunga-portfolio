@@ -5,8 +5,8 @@ const route = () => {
   document.querySelectorAll('[data-route]').forEach(link => link.classList.toggle('active', link.getAttribute('href') === location.pathname || (name === 'home' && link.getAttribute('href') === '/')));
   window.scrollTo({ top: 0, behavior: 'instant' });
 };
-document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); history.pushState({}, '', link.href); route(); }));
-window.addEventListener('popstate', route); route();
+// Keep route links as normal browser navigation so each page opens with a fresh load.
+route();
 document.getElementById('year').textContent = new Date().getFullYear();
 
 document.querySelector('.menu-button').addEventListener('click', event => {
