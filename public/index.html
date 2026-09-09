@@ -122,6 +122,26 @@
 
       <section class="page contact-page" data-page="contact" hidden><section class="contact-banner"><h1>CONTACT</h1></section><section id="contact" class="contact-section section-shell"><div><p class="eyebrow">01/</p><h2>LET'S GET IN TOUCH!</h2><p class="contact-details"><a href="tel:+94772007990">+94 772007990</a><a href="mailto:info@shanakakulathunga.com">info@shanakakulathunga.com</a></p><p><a href="https://facebook.com/shanakapaintings" target="_blank" rel="noreferrer">Facebook</a> &nbsp; <a href="https://instagram.com/shanaka_kulathunga" target="_blank" rel="noreferrer">Instagram</a></p></div><form id="contact-form" data-contact-form><label>Name<input name="name" required autocomplete="name"></label><label>Email<input type="email" name="email" required autocomplete="email"></label><label>Phone<input name="phone" autocomplete="tel"></label><label>Subject<input name="subject"></label><label>Message<textarea name="message" rows="6" required></textarea></label><button>Enquire Today <span>→</span></button><p class="form-message" aria-live="polite"></p></form></section></section>
     </main>
+    <div class="artwork-modal" id="artwork-modal" hidden>
+      <div class="artwork-modal-backdrop" data-artwork-close></div>
+      <section class="artwork-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="artwork-modal-title">
+        <button class="artwork-modal-close" type="button" data-artwork-close aria-label="Back to artworks">← Back</button>
+        <div class="artwork-modal-grid">
+          <div class="artwork-modal-image-wrap"><img id="artwork-modal-image" src="" alt=""></div>
+          <div class="artwork-modal-info">
+            <p class="eyebrow" id="artwork-modal-status"></p>
+            <h2 id="artwork-modal-title"></h2>
+            <dl>
+              <div><dt>Year</dt><dd id="artwork-modal-year"></dd></div>
+              <div><dt>Medium</dt><dd id="artwork-modal-medium"></dd></div>
+              <div><dt>Size</dt><dd id="artwork-modal-size"></dd></div>
+              <div><dt>Reference</dt><dd id="artwork-modal-id"></dd></div>
+            </dl>
+            <a class="artwork-modal-enquire" href="/contact">Enquire about this artwork <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+    </div>
     <footer><p>© <span id="year"></span> Shanaka Kulathunga. All rights reserved.</p><div><a href="https://facebook.com/shanakapaintings" target="_blank" rel="noreferrer">Facebook</a><a href="https://instagram.com/shanaka_kulathunga" target="_blank" rel="noreferrer">Instagram</a></div></footer>
     <script src="/artworks.js"></script>
     <script src="/app.js"></script>

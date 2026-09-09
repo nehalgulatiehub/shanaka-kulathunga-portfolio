@@ -24,7 +24,7 @@ function escapeHtml(value) {
 }
 
 function artworkCard(artwork, featured = false) {
-  return `<article class="${featured ? 'featured-card' : 'catalogue-card'}">
+  return `<article class="${featured ? 'featured-card' : 'catalogue-card'} artwork-card" data-artwork-id="${escapeHtml(artwork.id)}" role="button" tabindex="0" aria-label="View ${escapeHtml(artwork.title)} details">
     <img src="${encodeURI(artwork.image)}" alt="${escapeHtml(artwork.title)} by Shanaka Kulathunga">
     <div><p>${artwork.status === 'available' ? 'Available' : 'Sold'} · ${escapeHtml(artwork.year)}</p><h2>${escapeHtml(artwork.title)}</h2><small>${escapeHtml(artwork.medium)}<br>${escapeHtml(artwork.size)}<br>${escapeHtml(artwork.id)}</small></div>
   </article>`;
@@ -48,6 +48,51 @@ function renderCatalogue(status) {
 }
 document.querySelectorAll('[data-artwork-filter]').forEach(button => button.addEventListener('click', () => renderCatalogue(button.dataset.artworkFilter)));
 renderCatalogue('available');
+
+const artworkModal = document.getElementById('artwork-modal');
+const artworkModalImage = document.getElementById('artwork-modal-image');
+const artworkModalStatus = document.getElementById('artwork-modal-status');
+const artworkModalTitle = document.getElementById('artwork-modal-title');
+const artworkModalYear = document.getElementById('artwork-modal-year');
+const artworkModalMedium = document.getElementById('artwork-modal-medium');
+const artworkModalSize = document.getElementById('artwork-modal-size');
+const artworkModalId = document.getElementById('artwork-modal-id');
+let artworkModalReturnFocus = null;
+
+function openArtwork(artwork, trigger) {
+  artworkModalReturnFocus = trigger;
+  artworkModalImage.src = encodeURI(artwork.image);
+  artworkModalImage.alt = `${artwork.title} by Shanaka Kulathunga`;
+  artworkModalStatus.textContent = artwork.status === 'available' ? 'AVAILABLE /' : 'SOLD /';
+  artworkModalTitle.textContent = artwork.title;
+  artworkModalYear.textContent = artwork.year;
+  artworkModalMedium.textContent = artwork.medium;
+  artworkModalSize.textContent = artwork.size;
+  artworkModalId.textContent = artwork.id;
+  artworkModal.hidden = false;
+  document.body.classList.add('modal-open');
+  artworkModal.querySelector('.artwork-modal-close').focus();
+}
+
+function closeArtwork() {
+  if (artworkModal.hidden) return;
+  artworkModal.hidden = true;
+  document.body.classList.remove('modal-open');
+  artworkModalImage.src = '';
+  if (artworkModalReturnFocus) artworkModalReturnFocus.focus();
+}
+
+function handleArtworkActivation(event) {
+  const card = event.target.closest('.artwork-card');
+  if (!card || (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ')) return;
+  if (event.type === 'keydown') event.preventDefault();
+  const artwork = window.artworks.find(item => item.id === card.dataset.artworkId);
+  if (artwork) openArtwork(artwork, card);
+}
+document.addEventListener('click', handleArtworkActivation);
+document.addEventListener('keydown', handleArtworkActivation);
+document.querySelectorAll('[data-artwork-close]').forEach(element => element.addEventListener('click', closeArtwork));
+document.addEventListener('keydown', event => { if (event.key === 'Escape') closeArtwork(); });
 
 async function sendForm(form, endpoint) {
   const message = form.querySelector('.form-message');
