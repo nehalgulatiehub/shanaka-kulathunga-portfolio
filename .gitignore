@@ -1,0 +1,5 @@
+node_modules/
+api/config.local.php
+public/uploads/
+tmp/
+_site/
