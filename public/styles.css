@@ -103,3 +103,30 @@ summary, .sr-only { cursor:pointer; }
 .home-page .intro-lower figure { margin:0; }.home-page .intro-lower figure img { width:100%; aspect-ratio:1.04; object-fit:cover; filter:none; border:0; }
 .home-page .intro-lower .artist-quote { width:100%; padding-top:0; }.home-page .intro-lower .artist-quote b { display:block; }
 @media (max-width:800px) { .home-page .intro-lower { grid-template-columns:1fr; }.home-page .intro-lower figure { display:none; }.home-page .intro-lower .artist-quote { width:75%; } }
+
+/* Mobile reference pass: keep the intro story's small and large images in the live order. */
+.menu-button { color:var(--ink); -webkit-appearance:none; appearance:none; }
+.collection-head a span,.featured-catalogue a span { display:inline-block; margin-left:8px; font-size:1.25em; line-height:.8; }
+.services-more span,.event-cta span,form button span { font-family:Arial,sans-serif; font-weight:700; }
+.home-page .artist-quote > a { display:grid; grid-template-columns:56px 1fr; grid-template-rows:1fr 1fr; align-items:center; column-gap:12px; }
+.home-page .artist-quote > a .quote-play { grid-row:span 2; display:grid; place-items:center; width:56px; height:56px; border:1px solid var(--ink); border-radius:50%; font-size:19px; line-height:1; padding-left:3px; }
+.home-page .artist-quote > a strong { align-self:end; font:700 16px/1.15 Syncopate,sans-serif; letter-spacing:.04em; }
+.home-page .artist-quote > a small { align-self:start; padding-left:0; margin-top:4px; }
+@media (max-width:800px) {
+  .home-page .intro { display:flex; flex-direction:column; gap:0; }
+  .home-page .intro > .intro-body { display:contents; }
+  .home-page .intro-body > .eyebrow { order:0; }
+  .home-page .intro-body > h2 { order:1; }
+  .home-page .intro-body > h3 { order:2; }
+  .home-page .intro-body > .columns { order:3; }
+  .home-page .intro-body > .intro-lower { order:4; display:grid; grid-template-columns:1fr; gap:0; margin-top:55px; }
+  .home-page .intro-lower figure { display:block; margin:0 0 26px; }
+  .home-page .intro-lower figure img { width:100%; aspect-ratio:1; object-fit:cover; border:0; }
+  .home-page .intro-lower .artist-quote { width:100%; margin:0 auto; padding:0 8px; text-align:center; }
+  .home-page .intro-lower .artist-quote b { margin-bottom:22px; }
+  .home-page .intro-lower .artist-quote > a { width:100%; margin-inline:auto; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; }
+  .home-page .intro-lower .artist-quote > a .quote-play { flex:none; }
+  .home-page .intro-lower .artist-quote > a strong,.home-page .intro-lower .artist-quote > a small { align-self:center; }
+  .home-page .intro > figure { order:5; display:block; margin:70px 0 0; }
+  .home-page .intro > figure img { width:100%; aspect-ratio:auto; object-fit:contain; border:10px solid var(--paper); }
+}
