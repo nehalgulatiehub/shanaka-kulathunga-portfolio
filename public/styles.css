@@ -191,7 +191,7 @@ body.modal-open { overflow:hidden; }
 .artworks-page .catalogue-card:hover,.artworks-page .catalogue-card:focus-visible { border-color:#aaa9a2; transform:translateY(-5px); box-shadow:0 22px 45px rgba(24,24,22,.12); }
 .artwork-card-media { position:relative; overflow:hidden; background:#e9e7e3; }
 .artworks-page .catalogue-card .artwork-card-media { aspect-ratio:4/5; display:flex; align-items:center; justify-content:center; padding:10px; border-bottom:1px solid #d5d5cf; background:#efefeb; }
-.artworks-page .catalogue-card .artwork-card-media img { width:100%; height:100%; aspect-ratio:auto; object-fit:contain; background:transparent; }
+.artworks-page .catalogue-card .artwork-card-media img { width:100%; height:100%; aspect-ratio:auto; object-fit:cover; background:transparent; }
 .artwork-card-media img { transition:transform .45s ease,filter .25s ease; }
 .artwork-card-view { position:absolute; left:16px; bottom:16px; display:inline-flex; align-items:center; gap:12px; padding:11px 14px; background:rgba(17,17,17,.92); color:#fff; font-size:.78rem; font-weight:600; opacity:0; transform:translateY(8px); transition:opacity .18s ease,transform .18s ease; }
 .artwork-card-view svg { width:18px; height:18px; }
