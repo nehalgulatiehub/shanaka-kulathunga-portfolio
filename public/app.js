@@ -27,7 +27,7 @@ function artworkCard(artwork, featured = false, index = 0) {
   const sequence = String(index + 1).padStart(2, '0');
   return `<article class="${featured ? 'featured-card' : 'catalogue-card'} artwork-card" data-artwork-id="${escapeHtml(artwork.id)}" role="button" tabindex="0" aria-label="View ${escapeHtml(artwork.title)} details">
     <div class="artwork-card-media"><img src="${encodeURI(artwork.image)}" alt="${escapeHtml(artwork.title)} by Shanaka Kulathunga"><span class="artwork-card-view" aria-hidden="true">View artwork <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg></span></div>
-    <div class="artwork-card-copy">${featured ? '' : `<span class="artwork-card-index">${sequence}</span>`}<p>${artwork.status === 'available' ? 'Available' : 'Sold'} · ${escapeHtml(artwork.year)}</p><h2>${escapeHtml(artwork.title)}</h2><small>${escapeHtml(artwork.medium)}<br>${escapeHtml(artwork.size)}<br>${escapeHtml(artwork.id)}</small></div>
+    <div class="artwork-card-copy">${featured ? `<span class="featured-card-number">${sequence} / 04</span>` : `<span class="artwork-card-index">${sequence}</span>`}<p>${artwork.status === 'available' ? 'Available' : 'Sold'} · ${escapeHtml(artwork.year)}</p><h2>${escapeHtml(artwork.title)}</h2><small>${escapeHtml(artwork.medium)}<br>${escapeHtml(artwork.size)}<br>${escapeHtml(artwork.id)}</small></div>
   </article>`;
 }
 
