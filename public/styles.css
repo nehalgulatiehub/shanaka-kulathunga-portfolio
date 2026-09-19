@@ -153,7 +153,7 @@ body.modal-open { overflow:hidden; }
 .category-grid img:nth-child(1) { object-position:center 32%; }
 .category-grid img:nth-child(2) { object-position:center 27%; }
 .category-grid img:nth-child(3) { object-position:center; }
-.category-grid img:nth-child(4) { object-position:center 58%; }
+.category-grid img:nth-child(4) { object-position:center; }
 
 /* Editorial artwork catalogue. */
 .artworks-page { overflow:hidden; }
