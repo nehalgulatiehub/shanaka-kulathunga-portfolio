@@ -23,22 +23,26 @@ function escapeHtml(value) {
   return node.innerHTML;
 }
 
-function artworkCard(artwork, featured = false) {
+function artworkCard(artwork, featured = false, index = 0) {
+  const sequence = String(index + 1).padStart(2, '0');
   return `<article class="${featured ? 'featured-card' : 'catalogue-card'} artwork-card" data-artwork-id="${escapeHtml(artwork.id)}" role="button" tabindex="0" aria-label="View ${escapeHtml(artwork.title)} details">
-    <img src="${encodeURI(artwork.image)}" alt="${escapeHtml(artwork.title)} by Shanaka Kulathunga">
-    <div><p>${artwork.status === 'available' ? 'Available' : 'Sold'} · ${escapeHtml(artwork.year)}</p><h2>${escapeHtml(artwork.title)}</h2><small>${escapeHtml(artwork.medium)}<br>${escapeHtml(artwork.size)}<br>${escapeHtml(artwork.id)}</small></div>
+    <div class="artwork-card-media"><img src="${encodeURI(artwork.image)}" alt="${escapeHtml(artwork.title)} by Shanaka Kulathunga"><span class="artwork-card-view" aria-hidden="true">View artwork <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg></span></div>
+    <div class="artwork-card-copy">${featured ? '' : `<span class="artwork-card-index">${sequence}</span>`}<p>${artwork.status === 'available' ? 'Available' : 'Sold'} · ${escapeHtml(artwork.year)}</p><h2>${escapeHtml(artwork.title)}</h2><small>${escapeHtml(artwork.medium)}<br>${escapeHtml(artwork.size)}<br>${escapeHtml(artwork.id)}</small></div>
   </article>`;
 }
 
-const featuredArtworkIds = new Set(['SHAK-04', 'SHAK-14', 'SHAK-24', 'SHAK-41']);
+const featuredArtworkIds = new Set(['SHAK-04', 'SHAK-14', 'SHAK-24', 'SHAK-33']);
 const featuredGrid = document.getElementById('featured-artworks');
-featuredGrid.innerHTML = window.artworks.filter(artwork => featuredArtworkIds.has(artwork.id)).map(artwork => artworkCard(artwork, true)).join('');
+featuredGrid.innerHTML = window.artworks.filter(artwork => featuredArtworkIds.has(artwork.id)).map((artwork, index) => artworkCard(artwork, true, index)).join('');
 
 const catalogueGrid = document.getElementById('catalogue-grid');
 const artworkCount = document.getElementById('artwork-count');
+document.getElementById('collection-total').textContent = window.artworks.length;
+document.getElementById('available-total').textContent = window.artworks.filter(artwork => artwork.status === 'available').length;
+document.getElementById('sold-total').textContent = window.artworks.filter(artwork => artwork.status === 'sold').length;
 function renderCatalogue(status) {
   const selected = window.artworks.filter(artwork => artwork.status === status);
-  catalogueGrid.innerHTML = selected.map(artwork => artworkCard(artwork)).join('');
+  catalogueGrid.innerHTML = selected.map((artwork, index) => artworkCard(artwork, false, index)).join('');
   artworkCount.textContent = `${selected.length} ${status === 'available' ? 'works currently available' : 'works in private collections'}`;
   document.querySelectorAll('[data-artwork-filter]').forEach(button => {
     const active = button.dataset.artworkFilter === status;
@@ -57,6 +61,8 @@ const artworkModalYear = document.getElementById('artwork-modal-year');
 const artworkModalMedium = document.getElementById('artwork-modal-medium');
 const artworkModalSize = document.getElementById('artwork-modal-size');
 const artworkModalId = document.getElementById('artwork-modal-id');
+const artworkModalEnquire = document.querySelector('.artwork-modal-enquire');
+const siteBase = document.querySelector('.brand').getAttribute('href').replace(/\/?$/, '/');
 let artworkModalReturnFocus = null;
 
 function openArtwork(artwork, trigger) {
@@ -69,6 +75,7 @@ function openArtwork(artwork, trigger) {
   artworkModalMedium.textContent = artwork.medium;
   artworkModalSize.textContent = artwork.size;
   artworkModalId.textContent = artwork.id;
+  artworkModalEnquire.href = `${siteBase}contact?artwork=${encodeURIComponent(`${artwork.id} — ${artwork.title}`)}`;
   artworkModal.hidden = false;
   document.body.classList.add('modal-open');
   artworkModal.querySelector('.artwork-modal-close').focus();
@@ -78,7 +85,7 @@ function closeArtwork() {
   if (artworkModal.hidden) return;
   artworkModal.hidden = true;
   document.body.classList.remove('modal-open');
-  artworkModalImage.src = '';
+  artworkModalImage.removeAttribute('src');
   if (artworkModalReturnFocus) artworkModalReturnFocus.focus();
 }
 
@@ -93,6 +100,12 @@ document.addEventListener('click', handleArtworkActivation);
 document.addEventListener('keydown', handleArtworkActivation);
 document.querySelectorAll('[data-artwork-close]').forEach(element => element.addEventListener('click', closeArtwork));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeArtwork(); });
+
+const requestedArtwork = new URLSearchParams(location.search).get('artwork');
+if (requestedArtwork) {
+  const subject = document.querySelector('#contact-form [name="subject"]');
+  if (subject) subject.value = `Artwork enquiry: ${requestedArtwork}`;
+}
 
 async function sendForm(form, endpoint) {
   const message = form.querySelector('.form-message');

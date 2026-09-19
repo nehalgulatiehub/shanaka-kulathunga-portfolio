@@ -6,4 +6,5 @@ return [
     'db_name' => getenv('DB_NAME') ?: 'shanaka_portfolio',
     'db_user' => getenv('DB_USER') ?: 'CHANGE_ME',
     'db_pass' => getenv('DB_PASS') ?: 'CHANGE_ME',
+    'contact_email' => getenv('CONTACT_TO_EMAIL') ?: 'info@shanakakulathunga.com',
 ];

@@ -22,7 +22,7 @@ Open `http://localhost:3000`. The public pages work immediately; form submission
 ## Configure the PHP/MySQL backend
 
 1. In Hostinger hPanel, create a MySQL database and user, then import `database.sql` in phpMyAdmin.
-2. Copy `api/config.php` to `api/config.local.php` and replace `CHANGE_ME` values with the database host, database name, user and password. Never commit this file.
+2. Copy `api/config.php` to `api/config.local.php` and replace `CHANGE_ME` values with the database host, database name, user and password. Set `contact_email` to the studio mailbox that should receive enquiry notifications. Never commit this file.
 3. Create the first administrator. Generate a hash in a PHP terminal:
 
 ```bash
@@ -60,5 +60,5 @@ Copy `deployment/nginx-shanaka.conf` to the VPS Nginx site configuration, update
 
 - Use your production Hostinger database credentials only in `api/config.local.php`.
 - Enable an SSL certificate in hPanel and update the domain DNS only after testing on a staging subdomain.
-- The form endpoints store submissions in MySQL. Add a mailbox/SMTP notification only if you want email alerts as well.
-- The public gallery currently starts with the four visual portfolio cards from the live site; the database gallery endpoint and admin are ready for a database-driven gallery expansion.
+- Contact enquiries are saved in MySQL for the admin dashboard and also sent to `contact_email` through the Hostinger PHP mail service. If Hostinger mail delivery is disabled, the database copy remains available under **Recent enquiries** in `/admin/`.
+- The public gallery uses the supplied available and sold artwork catalogues; the database gallery endpoint and admin remain available for future uploads.
