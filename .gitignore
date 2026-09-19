@@ -3,3 +3,6 @@ api/config.local.php
 public/uploads/
 tmp/
 _site/
+
+.vercel
+.env*
